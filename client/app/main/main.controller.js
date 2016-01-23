@@ -52,6 +52,17 @@ class MainController {
   deleteThing(thing) {
     this.$http.delete('/api/things/' + thing._id);
   }*/
+
+  testPost() {
+	  var responsePromise = this.$http.post('/api/things', { name: '$http.post test' });
+	  //var responsePromise = this.$http({method:'POST', type:'POST', url:'/api/things', data:{ name: "test Thing" }});
+
+	  
+	  responsePromise.then(
+	    (res) => {this.debug = 'success:\n' + JSON.stringify(res, null, 2)},
+	    (err) => {this.debug = 'failure:\n' + JSON.stringify(err, null, 2)},
+	    (data) => {this.debug = 'notify:\n' + JSON.stringify(data, null, 2)});
+  }
   
   updateState(oldState, event) {
     var state = JSON.parse(JSON.stringify(oldState)); // ugly hack
