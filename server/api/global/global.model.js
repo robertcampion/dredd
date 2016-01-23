@@ -10,8 +10,7 @@ var GlobalSchema = new mongoose.Schema({
 GlobalSchema.statics = {
   getPropertyByName: function(name) {
     return this.findOneAsync({name: name})
-      .then(global => (global === null ? undefined : global.value))
-    });
+      .then(global => (global === null ? undefined : global.value));
   },
   setPropertyByName: function(name, value) {
     return this.updateAsync({name: name}, {$set:{value: value}}, {upsert: true});
