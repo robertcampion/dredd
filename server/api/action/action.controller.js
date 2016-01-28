@@ -1,16 +1,16 @@
 /**
  * Using Rails-like standard naming convention for endpoints.
- * GET     /api/globals              ->  index
- * POST    /api/globals              ->  create
- * GET     /api/globals/:id          ->  show
- * PUT     /api/globals/:id          ->  update
- * DELETE  /api/globals/:id          ->  destroy
+ * GET     /api/actions              ->  index
+ * POST    /api/actions              ->  create
+ * GET     /api/actions/:id          ->  show
+ * PUT     /api/actions/:id          ->  update
+ * DELETE  /api/actions/:id          ->  destroy
  */
 
 'use strict';
 
 import _ from 'lodash';
-import Global from './global.model';
+import Action from './action.model';
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -59,43 +59,43 @@ function handleError(res, statusCode) {
   };
 }
 
-// Gets a list of Globals
+// Gets a list of Actions
 export function index(req, res) {
-  Global.findAsync()
+  Action.findAsync()
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 
-// Gets a single Global from the DB
+// Gets a single Action from the DB
 export function show(req, res) {
-  Global.findByIdAsync(req.params.id)
+  Action.findByIdAsync(req.params.id)
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 
-// Creates a new Global in the DB
+// Creates a new Action in the DB
 export function create(req, res) {
-  Global.createAsync(req.body)
+  Action.createAsync(req.body)
     .then(respondWithResult(res, 201))
     .catch(handleError(res));
 }
 
-// Updates an existing Global in the DB
+// Updates an existing Action in the DB
 export function update(req, res) {
   if (req.body._id) {
     delete req.body._id;
   }
-  Global.findByIdAsync(req.params.id)
+  Action.findByIdAsync(req.params.id)
     .then(handleEntityNotFound(res))
     .then(saveUpdates(req.body))
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 
-// Deletes a Global from the DB
+// Deletes a Action from the DB
 export function destroy(req, res) {
-  Global.findByIdAsync(req.params.id)
+  Action.findByIdAsync(req.params.id)
     .then(handleEntityNotFound(res))
     .then(removeEntity(res))
     .catch(handleError(res));

@@ -54,9 +54,7 @@ class MainController {
   }*/
 
   testPost() {
-	  var responsePromise = this.$http.post('/api/things', { name: '$http.post test' });
-	  //var responsePromise = this.$http({method:'POST', type:'POST', url:'/api/things', data:{ name: "test Thing" }});
-
+	  var responsePromise = this.$http.post('/api/games', { duration: 120, state: { scores: [0, 0, 0, 0]} });
 	  
 	  responsePromise.then(
 	    (res) => {this.debug = 'success:\n' + JSON.stringify(res, null, 2)},

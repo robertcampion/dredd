@@ -3,40 +3,40 @@
 var app = require('../..');
 import request from 'supertest';
 
-var newGlobal;
+var newAction;
 
-describe('Global API:', function() {
+describe('Action API:', function() {
 
-  describe('GET /api/globals', function() {
-    var globals;
+  describe('GET /api/actions', function() {
+    var actions;
 
     beforeEach(function(done) {
       request(app)
-        .get('/api/globals')
+        .get('/api/actions')
         .expect(200)
         .expect('Content-Type', /json/)
         .end((err, res) => {
           if (err) {
             return done(err);
           }
-          globals = res.body;
+          actions = res.body;
           done();
         });
     });
 
     it('should respond with JSON array', function() {
-      globals.should.be.instanceOf(Array);
+      actions.should.be.instanceOf(Array);
     });
 
   });
 
-  describe('POST /api/globals', function() {
+  describe('POST /api/actions', function() {
     beforeEach(function(done) {
       request(app)
-        .post('/api/globals')
+        .post('/api/actions')
         .send({
-          name: 'New Global',
-          info: 'This is the brand new global!!!'
+          name: 'New Action',
+          info: 'This is the brand new action!!!'
         })
         .expect(201)
         .expect('Content-Type', /json/)
@@ -44,55 +44,55 @@ describe('Global API:', function() {
           if (err) {
             return done(err);
           }
-          newGlobal = res.body;
+          newAction = res.body;
           done();
         });
     });
 
-    it('should respond with the newly created global', function() {
-      newGlobal.name.should.equal('New Global');
-      newGlobal.info.should.equal('This is the brand new global!!!');
+    it('should respond with the newly created action', function() {
+      newAction.name.should.equal('New Action');
+      newAction.info.should.equal('This is the brand new action!!!');
     });
 
   });
 
-  describe('GET /api/globals/:id', function() {
-    var global;
+  describe('GET /api/actions/:id', function() {
+    var action;
 
     beforeEach(function(done) {
       request(app)
-        .get('/api/globals/' + newGlobal._id)
+        .get('/api/actions/' + newAction._id)
         .expect(200)
         .expect('Content-Type', /json/)
         .end((err, res) => {
           if (err) {
             return done(err);
           }
-          global = res.body;
+          action = res.body;
           done();
         });
     });
 
     afterEach(function() {
-      global = {};
+      action = {};
     });
 
-    it('should respond with the requested global', function() {
-      global.name.should.equal('New Global');
-      global.info.should.equal('This is the brand new global!!!');
+    it('should respond with the requested action', function() {
+      action.name.should.equal('New Action');
+      action.info.should.equal('This is the brand new action!!!');
     });
 
   });
 
-  describe('PUT /api/globals/:id', function() {
-    var updatedGlobal;
+  describe('PUT /api/actions/:id', function() {
+    var updatedAction;
 
     beforeEach(function(done) {
       request(app)
-        .put('/api/globals/' + newGlobal._id)
+        .put('/api/actions/' + newAction._id)
         .send({
-          name: 'Updated Global',
-          info: 'This is the updated global!!!'
+          name: 'Updated Action',
+          info: 'This is the updated action!!!'
         })
         .expect(200)
         .expect('Content-Type', /json/)
@@ -100,27 +100,27 @@ describe('Global API:', function() {
           if (err) {
             return done(err);
           }
-          updatedGlobal = res.body;
+          updatedAction = res.body;
           done();
         });
     });
 
     afterEach(function() {
-      updatedGlobal = {};
+      updatedAction = {};
     });
 
-    it('should respond with the updated global', function() {
-      updatedGlobal.name.should.equal('Updated Global');
-      updatedGlobal.info.should.equal('This is the updated global!!!');
+    it('should respond with the updated action', function() {
+      updatedAction.name.should.equal('Updated Action');
+      updatedAction.info.should.equal('This is the updated action!!!');
     });
 
   });
 
-  describe('DELETE /api/globals/:id', function() {
+  describe('DELETE /api/actions/:id', function() {
 
     it('should respond with 204 on successful removal', function(done) {
       request(app)
-        .delete('/api/globals/' + newGlobal._id)
+        .delete('/api/actions/' + newAction._id)
         .expect(204)
         .end((err, res) => {
           if (err) {
@@ -130,9 +130,9 @@ describe('Global API:', function() {
         });
     });
 
-    it('should respond with 404 when global does not exist', function(done) {
+    it('should respond with 404 when action does not exist', function(done) {
       request(app)
-        .delete('/api/globals/' + newGlobal._id)
+        .delete('/api/actions/' + newAction._id)
         .expect(404)
         .end((err, res) => {
           if (err) {
