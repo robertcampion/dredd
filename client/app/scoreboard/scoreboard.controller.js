@@ -2,7 +2,7 @@
 
 (function() {
 
-class MainController {
+class ScoreboardCtrl {
 
   constructor($http, $scope, socket) {
     this.$http = $http;
@@ -54,7 +54,7 @@ class MainController {
   }*/
 
   testPost() {
-	  var responsePromise = this.$http.post('/api/games', { duration: 120 });
+	  var responsePromise = this.$http.post('/api/games', { duration: 120, state: { scores: [0, 0, 0, 0]} });
 	  
 	  responsePromise.then(
 	    (res) => {this.debug = 'success:\n' + JSON.stringify(res, null, 2)},
@@ -105,6 +105,6 @@ class MainController {
 }
 
 angular.module('dreddApp')
-  .controller('MainController', MainController);
+  .controller('ScoreboardCtrl', ScoreboardCtrl);
 
 })();
