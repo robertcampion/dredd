@@ -9,6 +9,14 @@ class NavbarController {
   {
     'title': 'Scoreboard',
     'state': 'scoreboard'
+  },
+  {
+    'title': 'Teams',
+    'state': 'teams'
+  },
+  {
+    'title': 'Games',
+    'state': 'games'
   }];
 
   isCollapsed = true;

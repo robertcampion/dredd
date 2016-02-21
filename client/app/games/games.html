@@ -1,0 +1,71 @@
+<navbar></navbar>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <ul ng-controller="GameListCtrl as gameList">
+        <li ng-repeat="game in gameList.games">
+          <pre>{{game}}</pre>
+          <button type="button" class="btn btn-danger" ng-click="gameList.deleteGame(game._id)">Delete</button>
+        </li>      
+      </ul>
+      <h3>New Game</h3>
+      <form role="form" class="form-inline" ng-controller="NewGameCtrl as newGame">
+        <div class="form-group">
+          <h3>All Teams</h3>
+          <ul>
+            <li ng-repeat="team in newGame.teams">
+              {{team.name}}
+              <button type="button" class="btn" ng-click="newGame.addTeam(team._id)" ng-disabled="newGame.game.teams.indexOf(team._id) >= 0">Add</button>
+            </li>      
+          </ul>
+          <h3>Teams in Game</h3>
+          <ul>
+            <li ng-repeat="teamId in newGame.game.teams">
+              {{newGame.getTeamById(teamId).name}}
+              <button type="button" class="btn btn-danger" ng-click="newGame.removeTeam(teamId)">Remove</button>
+            </li>      
+          </ul>
+        </div>
+        <!--<div class="form-group">
+          <label for="school">Duration:</label>
+          <input type="text" class="form-control" name="school" ng-model="newGame.game.duration">
+        </div>-->
+        <button type="submit" class="btn btn-primary" ng-click="newGame.addGame()">Add Game</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!--
+
+var GameSchema = new mongoose.Schema({
+  // game parameters:
+  // duration is in milliseconds!
+  // the internal timer always counts up from zero to duration
+  // however, the display counts down from duration to zero if clockIncreases is false
+  duration:       { type: Number,                  required: true },
+  clockIncreases: { type: Boolean, default: false, required: true },
+  teams:          [{ type: mongoose.Schema.Types.ObjectId, ref: 'Team'}],
+  // if clockRunning is true, the clock is running, and was equal to gameTimeAtEpoch
+  //     when the *server's* wall clock time was equal to dateAtEpoch
+  // if clockRunning is false, the clock is paused, and is equal to gameTimeAtEpoch
+  // clockRunning should only be true for the current game (as defined below)
+  dateAtEpoch:     { type: Date,    default: null,  required: false },
+  gameTimeAtEpoch: { type: Number,  default: 0,     required: true },
+  clockRunning:    { type: Boolean, default: false, required: true },
+  // if queuePosition exists, the game is in the queue of upcoming games
+  // ...except the first game in the queue (if it exists), which is the current game
+  // if the game is not in the queue and dateCompleted exists, the game is in the
+  //     completed games list
+  // otherwise the game is on the 'scratchpad' of unplaced games
+  queuePosition: { type: Number, default: null, required: false },
+  dateCompleted: { type: Date,   default: null, required: false },
+  // game state
+  currentState: { type: State.schema },
+  actions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Action'}]
+});
+
+-->
+
+<footer></footer>

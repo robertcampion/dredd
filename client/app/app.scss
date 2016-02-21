@@ -16,8 +16,10 @@ $fa-font-path: "../bower_components/font-awesome/fonts";
 
 // Component styles are injected through grunt
 // injector
+@import 'games/games.scss';
 @import 'main/main.scss';
 @import 'scoreboard/scoreboard.scss';
+@import 'teams/teams.scss';
 @import '../components/footer/footer.scss';
 @import '../components/modal/modal.scss';
 // endinjector
