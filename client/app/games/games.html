@@ -5,34 +5,37 @@
     <div class="col-lg-12">
       <ul ng-controller="GameListCtrl as gameList">
         <li ng-repeat="game in gameList.games">
-          <pre>{{game}}</pre>
-          <button type="button" class="btn btn-danger" ng-click="gameList.deleteGame(game._id)">Delete</button>
+          <div ng-controller="ModifyGameCtrl as modifyGame" ng-init="modifyGame.game = game">
+            <pre>{{modifyGame.game | json}}</pre>
+            <ul>
+              <li ng-repeat="teamId in modifyGame.game.teams track by $index">
+                {{gameList.getTeamById(teamId).name}}
+                <button type="button" class="btn btn-danger" ng-click="modifyGame.removeTeam(teamId)">Remove Team</button>
+              </li>
+              <li>
+                <div class="btn-group" uib-dropdown>
+                  
+                    Add Team
+                  <ul >
+                    <li ng-repeat="team in gameList.teams">
+                      <a href="#" ng-click="modifyGame.addTeam(team._id)">
+                        {{team.name}}
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+            <ul>
+            <button type="button" class="btn btn-danger" ng-click="gameList.deleteGame(game._id)">Delete</button>
+          </div>
         </li>      
       </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12" ng-controller="NewGameCtrl as newGame">
       <h3>New Game</h3>
-      <form role="form" class="form-inline" ng-controller="NewGameCtrl as newGame">
-        <div class="form-group">
-          <h3>All Teams</h3>
-          <ul>
-            <li ng-repeat="team in newGame.teams">
-              {{team.name}}
-              <button type="button" class="btn" ng-click="newGame.addTeam(team._id)" ng-disabled="newGame.game.teams.indexOf(team._id) >= 0">Add</button>
-            </li>      
-          </ul>
-          <h3>Teams in Game</h3>
-          <ul>
-            <li ng-repeat="teamId in newGame.game.teams">
-              {{newGame.getTeamById(teamId).name}}
-              <button type="button" class="btn btn-danger" ng-click="newGame.removeTeam(teamId)">Remove</button>
-            </li>      
-          </ul>
-        </div>
-        <!--<div class="form-group">
-          <label for="school">Duration:</label>
-          <input type="text" class="form-control" name="school" ng-model="newGame.game.duration">
-        </div>-->
-        <button type="submit" class="btn btn-primary" ng-click="newGame.addGame()">Add Game</button>
-      </form>
+      <button type="button" class="btn btn-primary" ng-click="newGame.addGame()">Add Game</button>
     </div>
   </div>
 </div>

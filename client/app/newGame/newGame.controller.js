@@ -17,15 +17,6 @@ angular.module('dreddApp')
       this.reset();
     }
     
-    this.getTeamById = function(teamId) {
-      for(var team of this.teams) {
-        if(team._id === teamId) {
-          return team;
-        }
-      }
-      return null;  
-    }
-    
     this.addTeam = function(teamId) {
       this.game.teams.push(teamId);
     }
@@ -37,13 +28,13 @@ angular.module('dreddApp')
       }
     }
     
-    this.$http.get('/api/teams').then(response => {
-      this.teams = response.data;
-      socket.syncUpdates('team', this.teams);
-    });
+    //this.$http.get('/api/teams').then(response => {
+    //  this.teams = response.data;
+    //  socket.syncUpdates('team', this.teams);
+    //});
     
     $scope.$on('$destroy', function() {
-      socket.unsyncUpdates('team');
+      //socket.unsyncUpdates('team');
     });
     
   });

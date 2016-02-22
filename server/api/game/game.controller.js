@@ -21,9 +21,22 @@ function respondWithResult(res, statusCode) {
   };
 }
 
+// overwrite arrays instead of merging by keys
+//function customMerge(objValue, srcValue) {
+//  if (_.isArray(objValue)) {
+//    return srcValue;
+//  }
+//}
+
 function saveUpdates(updates) {
   return function(entity) {
-    var updated = _.merge(entity, updates);
+    //var updated = _.mergeWith(entity, updates, customMerge);
+    //var updated = _.merge(entity, updates);
+    var updated = _.extend(entity, updates);
+    /*for(key in updates) {
+      entity[key] = updates[key];
+    }
+    var updated = entity;    */
     return updated.saveAsync()
       .spread(updated => {
         return updated;
@@ -86,6 +99,7 @@ export function update(req, res) {
   if (req.body._id) {
     delete req.body._id;
   }
+  console.log(req.body);
   Game.findByIdAsync(req.params.id)
     .then(handleEntityNotFound(res))
     .then(saveUpdates(req.body))
