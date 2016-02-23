@@ -10,7 +10,7 @@ var State = require('../state/state.model');
 var ActionSchema = new mongoose.Schema({
   prototypeId: { type: Number, required: true },
   team: { type: mongoose.Schema.Types.ObjectId, ref: 'Team', required: true },
-  type: { type: String, required: true },
+  kind: { type: String, required: true },
   value: { type: Number, required: true },
   previousState: { type: State.schema, required: true },
   gameTime: { type: Number, default: -1, required: true }
@@ -36,7 +36,7 @@ ActionSchema.methods.applyToState = function(state) {
       return;
     }
     
-    switch(this.type) {
+    switch(this.kind) {
       case 'points':
         newState.basePoints[teamIndex] += this.value;
         break;

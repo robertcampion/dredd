@@ -1,27 +1,29 @@
 'use strict';
 
-import config from '../../config/environment'
+import config from '../../config/environment';
 
 var mongoose = require('bluebird').promisifyAll(require('mongoose'));
 
 var StateSchema = new mongoose.Schema({
   // points; scores = basePoints * pointMultipliers + extraPoints
-  basePoints:       { type: [Number] },
-  pointMultipliers: { type: [Number] },
-  extraPoints:      { type: [Number] },
+  basePoints:       [Number],
+  pointMultipliers: [Number],
+  extraPoints:      [Number],
   // counts; for each team, map prototype ids to counts (undefined=0)
-  counts:           { type: [Object] }
+  //counts:           [Object]
+},
+{
+  toObject: { virtuals: true },
+  toJSON:   { virtuals: true }
 });
 
-StateSchema.statics.newInitialState = function(n) {
-  if(n < 0 || n > config.maxTeams) {
-    return 'Bad number of teams "' + n + '"';
-  }
+StateSchema.statics.newInitialState = function() {
+  var n = config.numTeams;
   return {
     basePoints:       Array(n).fill(0),
     pointMultipliers: Array(n).fill(1),
     extraPoints:      Array(n).fill(0),
-    counts: Array(n).fill().map(() => { return {}; })
+    //counts: Array(n).fill().map(() => { return {}; })
   };
 }
 

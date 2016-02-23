@@ -1,8 +1,11 @@
 'use strict';
 
+import config from '../../config/environment';
+
 var mongoose = require('bluebird').promisifyAll(require('mongoose'));
 
 var State = require('../state/state.model');
+var Action = require('../action/action.model');
 
 var GameSchema = new mongoose.Schema({
   // game parameters:
@@ -27,8 +30,8 @@ var GameSchema = new mongoose.Schema({
   queuePosition: { type: Number, default: null, required: false },
   dateCompleted: { type: Date,   default: null, required: false },
   // game state
-  currentState: { type: State.schema },
-  actions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Action'}]
+  currentState: { type: State.schema, default: State.newInitialState, required: true },
+  actions: [Action.schema]
 });
 
 GameSchema.methods.rebuildState = function(index, startingState) {
@@ -39,19 +42,6 @@ GameSchema.methods.rebuildState = function(index, startingState) {
   
 
 };
-
-GameSchema.pre('save', true, function(next, done) {
-  
-  next();
-  
-  // check if the teams list has been modified
-  if(this.isModified('teams')) {
-  }
-  
-  done();
-  
-  //mongoose.model(''
-});
 
 GameSchema.pre('save', function(next) {
   // the clock starts now, set epoch
@@ -82,7 +72,12 @@ GameSchema.pre('save', function(next) {
   
   // make sure state is initialized
   if(this.currentState === null) {
-    this.currentState = State.newInitialState(this.teams.length);
+    this.currentState = State.newInitialState();
+  }
+  
+  // make sure length of teams is correct
+  while(this.teams.length < config.numTeams) {
+    this.teams.push(null);
   }
   
   next();

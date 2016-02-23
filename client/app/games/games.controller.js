@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('dreddApp')
-  .controller('GamesCtrl', function ($scope, $http) {
+  .controller('GamesCtrl', function ($scope, $http, appConfig) {
     
     this.$http = $http;
     
@@ -9,5 +9,8 @@ angular.module('dreddApp')
       this.$http.post('/api/games', {duration: 5*60*1000});
     }
     
+    this.actionPrototypes = appConfig.actionPrototypes;
+    
+    console.log(appConfig);
     
   });

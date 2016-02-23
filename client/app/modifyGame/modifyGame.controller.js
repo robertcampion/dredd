@@ -9,16 +9,8 @@ angular.module('dreddApp')
       var result = this.$http.put('/api/games/' + this.game._id, this.game);
     }
     
-    this.removeTeam = function(teamId) {
-      var index = this.game.teams.indexOf(teamId);
-      if(index >= 0) {
-        this.game.teams.splice(index, 1);
-      }
-      this.sendToServer();
-    }
-    
-    this.addTeam = function(teamId) {
-      this.game.teams.push(teamId);
+    this.setTeam = function(idx, teamId) {
+      this.game.teams[idx] = teamId;
       this.sendToServer();
     }
 

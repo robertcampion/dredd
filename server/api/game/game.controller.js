@@ -31,8 +31,8 @@ function respondWithResult(res, statusCode) {
 function saveUpdates(updates) {
   return function(entity) {
     //var updated = _.mergeWith(entity, updates, customMerge);
-    //var updated = _.merge(entity, updates);
-    var updated = _.extend(entity, updates);
+    var updated = _.merge(entity, updates); 
+    //var updated = _.extend(entity, updates);
     /*for(key in updates) {
       entity[key] = updates[key];
     }
@@ -99,7 +99,7 @@ export function update(req, res) {
   if (req.body._id) {
     delete req.body._id;
   }
-  console.log(req.body);
+  //console.log(req.body);
   Game.findByIdAsync(req.params.id)
     .then(handleEntityNotFound(res))
     .then(saveUpdates(req.body))

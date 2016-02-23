@@ -1,5 +1,9 @@
 <navbar></navbar>
 
+<pre>
+{{ game.actionPrototypes | json }}
+</pre>
+
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
@@ -7,18 +11,21 @@
         <li ng-repeat="game in gameList.games">
           <div ng-controller="ModifyGameCtrl as modifyGame" ng-init="modifyGame.game = game">
             <pre>{{modifyGame.game | json}}</pre>
-            <ul>
-              <li ng-repeat="teamId in modifyGame.game.teams track by $index">
-                {{gameList.getTeamById(teamId).name}}
-                <button type="button" class="btn btn-danger" ng-click="modifyGame.removeTeam(teamId)">Remove Team</button>
-              </li>
-              <li>
+            <ul class="list-inline">
+              <li ng-repeat="teamId in modifyGame.game.teams track by $index" ng-init="teamIndex = $index">
                 <div class="btn-group" uib-dropdown>
-                  
-                    Add Team
-                  <ul >
-                    <li ng-repeat="team in gameList.teams">
-                      <a href="#" ng-click="modifyGame.addTeam(team._id)">
+                  <button type="button" class="btn" uib-dropdown-toggle>
+                    {{teamId === null ? 'Empty' : gameList.getTeamById(teamId).name}} <span class="caret"></span>
+                  </button>
+                  <ul class="uib-dropdown-menu" role="menu" aria-labelledby="single-button">
+                    <li role="menuitem">
+                      <a href="#" ng-click="modifyGame.setTeam(teamIndex, null)">
+                        Empty
+                      </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li role="menuitem" ng-repeat="team in gameList.teams">
+                      <a href="#" ng-click="modifyGame.setTeam(teamIndex, team._id)">
                         {{team.name}}
                       </a>
                     </li>
@@ -26,7 +33,7 @@
                 </div>
               </li>
             <ul>
-            <button type="button" class="btn btn-danger" ng-click="gameList.deleteGame(game._id)">Delete</button>
+            <button type="button" class="btn btn-danger" ng-click="gameList.deleteGame(game._id)">Delete Game</button>
           </div>
         </li>      
       </ul>
