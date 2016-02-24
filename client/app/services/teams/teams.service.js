@@ -9,7 +9,6 @@ angular.module('dreddApp')
     
     this.$http.get('/api/teams').then(response => {
       this.teams.push(...response.data);
-      
       socket.syncUpdates('team', this.teams);
     });
     

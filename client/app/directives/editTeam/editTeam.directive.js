@@ -3,24 +3,13 @@
 angular.module('dreddApp')
   .directive('editTeam', [function() {
   
-    var controller = ['$http', function($http) {
+    var controller = [function() {
       
-      this.$http = $http;
-      this.newTeam = _.clone(this.team);
-      this.editing = false;
-      
-      this.toggleEdit = function() {
-        this.editing = !this.editing;
-        this.newTeam = _.clone(this.team);
-      }
+      this.team = _.clone(this.initialState);
       
       this.submitEdit = function() {
-        this.$http.put('/api/teams/' + this.team._id, this.newTeam);
-        this.toggleEdit();
-      }
-      
-      this.deleteTeam = function() {
-        this.$http.delete('/api/teams/' + this.team._id, this.newTeam);
+        this.submitFunction({edit: this.team});
+        this.team = _.clone(this.initialState);
       }
     }];
   
@@ -28,10 +17,12 @@ angular.module('dreddApp')
       templateUrl: 'app/directives/editTeam/editTeam.html',
       restrict: 'E',
       scope: {
-        team: '='
+        initialState: '=',
+        submitFunction: '&',
+        message: '@'
       },
       controller: controller,
-      controllerAs: 'editTeam',
+      controllerAs: 'editTeamCtrl',
       bindToController: true
     };
   }]);

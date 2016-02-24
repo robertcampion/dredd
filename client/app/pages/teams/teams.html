@@ -5,7 +5,10 @@
     <div class="col-lg-12">
       <ul>
         <li ng-repeat="team in teamsCtrl.teams | orderBy:'name'">
-          <edit-team team="team"></edit-team>
+          <team team="team"></team>
+        </li>
+        <li>
+          <edit-team initial-state="{name:'', school:''}" submit-function="teamsCtrl.addTeam(edit)" message="Add Team"></edit-team>
         </li>
       </ul>
       

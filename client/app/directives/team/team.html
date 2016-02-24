@@ -1,0 +1,13 @@
+<span ng-hide="teamCtrl.editing">
+  {{teamCtrl.team.name}} ({{teamCtrl.team.school}})
+</span>
+
+<edit-team ng-show="teamCtrl.editing" initial-state="teamCtrl.team" submit-function="teamCtrl.submitEdit(edit)" message="Submit Edit"></edit-team>
+
+<button type="button" class="btn btn-default" ng-click="teamCtrl.toggleEdit()">
+  {{teamCtrl.editing ? 'Cancel Edit' : 'Edit'}}
+</button>
+<button type="button" class="btn btn-danger" ng-click="teamCtrl.deleteTeam()">
+  Delete
+</button>
+
