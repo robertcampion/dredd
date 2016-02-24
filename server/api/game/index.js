@@ -12,4 +12,7 @@ router.put('/:id', controller.update);
 router.patch('/:id', controller.update);
 router.delete('/:id', controller.destroy);
 
+router.post('/:id/actions', controller.addAction);
+router.delete('/:id/actions/:actionId', controller.removeAction);
+
 module.exports = router;

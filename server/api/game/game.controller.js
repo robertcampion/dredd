@@ -21,22 +21,12 @@ function respondWithResult(res, statusCode) {
   };
 }
 
-// overwrite arrays instead of merging by keys
-//function customMerge(objValue, srcValue) {
-//  if (_.isArray(objValue)) {
-//    return srcValue;
-//  }
-//}
-
 function saveUpdates(updates) {
   return function(entity) {
-    //var updated = _.mergeWith(entity, updates, customMerge);
+    if(update.actions) {
+      delete update.actions;
+    }    
     var updated = _.merge(entity, updates); 
-    //var updated = _.extend(entity, updates);
-    /*for(key in updates) {
-      entity[key] = updates[key];
-    }
-    var updated = entity;    */
     return updated.saveAsync()
       .spread(updated => {
         return updated;
@@ -112,5 +102,29 @@ export function destroy(req, res) {
   Game.findByIdAsync(req.params.id)
     .then(handleEntityNotFound(res))
     .then(removeEntity(res))
+    .catch(handleError(res));
+}
+
+// Adds a new Action to a Game in the DB
+export function addAction(req, res) {
+  Game.findByIdAsync(req.params.id)
+    .then(handleEntityNotFound(res))
+    .then((game) => {
+      game.addAction(req.body);
+      return game.saveAsync();
+    })
+    .then(respondWithResult(res, 201))
+    .catch(handleError(res));
+}
+
+// Removes an Action from a Game in the DB
+export function removeAction(req, res) {
+  Game.findByIdAsync(req.params.id)
+    .then(handleEntityNotFound(res))
+    .then((game) => {
+      game.removeActionById(req.params.actionId);
+      return game.saveAsync();
+    })
+    .then(respondWithResult(res, 204))
     .catch(handleError(res));
 }

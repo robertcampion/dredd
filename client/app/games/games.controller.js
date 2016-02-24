@@ -11,6 +11,6 @@ angular.module('dreddApp')
     
     this.actionPrototypes = appConfig.actionPrototypes;
     
-    console.log(appConfig);
+    console.log(this.actionPrototypes);
     
   });

@@ -10,10 +10,10 @@ var StateSchema = new mongoose.Schema({
   pointMultipliers: [Number],
   extraPoints:      [Number],
   // counts; for each team, map prototype ids to counts (undefined=0)
-  //counts:           [Object]
+  counts:           [mongoose.Schema.Types.Mixed]
 },
 {
-  toObject: { virtuals: true },
+  toObject: { virtuals: false },
   toJSON:   { virtuals: true }
 });
 
@@ -23,7 +23,7 @@ StateSchema.statics.newInitialState = function() {
     basePoints:       Array(n).fill(0),
     pointMultipliers: Array(n).fill(1),
     extraPoints:      Array(n).fill(0),
-    //counts: Array(n).fill().map(() => { return {}; })
+    counts: Array(n).fill().map(() => { return { not: 'empty' } })
   };
 }
 

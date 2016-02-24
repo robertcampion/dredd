@@ -14,7 +14,7 @@ var GameSchema = new mongoose.Schema({
   // however, the display counts down from duration to zero if clockIncreases is false
   duration:       { type: Number,                  required: true },
   clockIncreases: { type: Boolean, default: false, required: true },
-  teams:          [{ type: mongoose.Schema.Types.ObjectId, ref: 'Team'}],
+  teams:          [{ type: mongoose.Schema.Types.ObjectId, ref: 'Team' }],
   // if clockRunning is true, the clock is running, and was equal to gameTimeAtEpoch
   //     when the *server's* wall clock time was equal to dateAtEpoch
   // if clockRunning is false, the clock is paused, and is equal to gameTimeAtEpoch
@@ -34,14 +34,57 @@ var GameSchema = new mongoose.Schema({
   actions: [Action.schema]
 });
 
-GameSchema.methods.rebuildState = function(index, startingState) {
-  if(this.index > this.actions.length) {
+
+GameSchema.methods.addAction = function(action) {
+  console.log('adding action: ', action);
+  var insertAt;
+  var state = this.currentState;
+  for(insertAt = 0; insertAt < this.actions.length; insertAt++) {
+    if(action.gameTime < this.actions.gameTime) {
+      state = this.actions[insertAt].previousState;
+      break;
+    }
+  }
+  
+  console.log('inserting action at: ', insertAt);
+  console.log('starting state: ', state);
+  
+  this.actions.splice(insertAt, 0, action);
+  
+  console.log('added state!');
+  
+  for(var i = insertAt; i < this.actions.length; i++) {
+    state = this.actions[i].applyToState(state);
+    console.log('intermediate state: ', state);
+  }
+  
+  this.currentState = state;
+  
+  console.log('final state: ', state);
+  
+}
+
+GameSchema.methods.removeActionById = function(id) {
+  var action = this.actions.id(id);
+  if(!action) {
     return;
   }
   
+  //console.log('action:', action);
   
-
-};
+  var state = action.previousState;
+  var removeAt = this.actions.indexOf(action);
+  
+  
+  
+  action.remove();
+  
+  for(var i = removeAt; i < this.actions.length; i++) {
+    state = this.actions[i].applyToState(state);
+  }
+  
+  this.currentState = state;
+}
 
 GameSchema.pre('save', function(next) {
   // the clock starts now, set epoch

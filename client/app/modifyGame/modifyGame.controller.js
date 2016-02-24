@@ -5,13 +5,19 @@ angular.module('dreddApp')
     
     this.$http = $http;
     
-    this.sendToServer = function() {
-      var result = this.$http.put('/api/games/' + this.game._id, this.game);
+    this.submitAction = function(action) {
+      action.team = this.game.teams[0];
+      this.$http.post('/api/games/' + this.game._id + '/actions', action);
+    }
+    
+    this.deleteAction = function(actionId) {
+      this.$http.delete('/api/games/' + this.game._id + '/actions/' + actionId);
     }
     
     this.setTeam = function(idx, teamId) {
-      this.game.teams[idx] = teamId;
-      this.sendToServer();
+      var teams = _.clone(this.game.teams);
+      teams[idx] = teamId;
+      this.$http.put('/api/games/' + this.game._id, { teams: teams });
     }
 
   });

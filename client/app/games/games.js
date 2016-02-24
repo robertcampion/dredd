@@ -7,6 +7,6 @@ angular.module('dreddApp')
         url: '/games',
         templateUrl: 'app/games/games.html',
         controller: 'GamesCtrl',
-        controllerAs: 'game'
+        controllerAs: 'gamesCtrl'
       });
   });
