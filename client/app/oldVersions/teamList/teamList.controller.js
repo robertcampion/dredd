@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('dreddApp')
+/*angular.module('dreddApp')
   .controller('TeamListCtrl', function ($http, $scope, socket) {
     
     this.$http = $http;
@@ -22,4 +22,4 @@ angular.module('dreddApp')
     
     
     
-  });
+  });*/

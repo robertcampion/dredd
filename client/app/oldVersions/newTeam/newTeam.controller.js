@@ -14,7 +14,7 @@ angular.module('dreddApp')
     this.addTeam = function() {
       this.$http.post('/api/teams', this.team);
       
-      this.reset();;
+      this.reset();
     }
     
     

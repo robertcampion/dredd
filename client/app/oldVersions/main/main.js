@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('dreddApp')
+/*angular.module('dreddApp')
   .config(function($stateProvider) {
     $stateProvider
       .state('main', {
@@ -9,4 +9,4 @@ angular.module('dreddApp')
         controller: 'MainController',
         controllerAs: 'main'
       });
-  });
+  });*/

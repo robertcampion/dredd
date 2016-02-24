@@ -1,0 +1,45 @@
+<div ng-controller="ModifyGameCtrl as modifyGame" ng-init="modifyGame.game = game">
+  <h3>Current Score</h3>
+  <h3>Teams</h3>
+  <ul class="list-inline">
+    <li ng-repeat="teamId in modifyGame.game.teams track by $index" ng-init="teamIndex = $index">
+      <div class="btn-group" uib-dropdown>
+        <button type="button" class="btn" uib-dropdown-toggle>
+          {{teamId === null ? 'Empty' : gameList.getTeamById(teamId).name}} ({{ modifyGame.game.currentState.scores[teamIndex] }})<span class="caret"></span>
+        </button>
+        <ul class="uib-dropdown-menu" role="menu" aria-labelledby="single-button">
+          <li role="menuitem">
+            <a href="#" ng-click="modifyGame.setTeam(teamIndex, null)">
+              Empty
+            </a>
+          </li>
+          <li class="divider"></li>
+          <li role="menuitem" ng-repeat="team in gameList.teams">
+            <a href="#" ng-click="modifyGame.setTeam(teamIndex, team._id)">
+              {{team.name}}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+  <h3>Events</h3>
+  <ul>
+    <li ng-repeat="action in modifyGame.game.actions" >
+      <code>{{action | json}}</code>
+      <button type="button" class="btn btn-danger" ng-click="modifyGame.deleteAction(action._id)">
+        Remove Event
+      </button>
+    </li>
+  </ul>
+  <h3>Add Event</h3>
+  <ul class="list-inline">
+    <li ng-repeat="action in gamesCtrl.actionPrototypes" >
+      <button type="button" class="btn btn-primary" ng-click="modifyGame.submitAction(action)">
+        {{action.name}}
+      </button>
+    </li>
+  </ul>
+  <h3>Delete</h3>
+  <button type="button" class="btn btn-danger" ng-click="gameList.deleteGame(game._id)">Delete Game</button>
+</div>

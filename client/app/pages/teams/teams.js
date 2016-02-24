@@ -5,7 +5,8 @@ angular.module('dreddApp')
     $stateProvider
       .state('teams', {
         url: '/teams',
-        templateUrl: 'app/teams/teams.html',
-        controller: 'TeamsCtrl'
+        templateUrl: 'app/pages/teams/teams.html',
+        controller: 'TeamsCtrl',
+        controllerAs: 'teamsCtrl'
       });
   });

@@ -16,10 +16,13 @@ $fa-font-path: "../bower_components/font-awesome/fonts";
 
 // Component styles are injected through grunt
 // injector
-@import 'games/games.scss';
-@import 'main/main.scss';
-@import 'scoreboard/scoreboard.scss';
-@import 'teams/teams.scss';
+@import 'directives/editTeam/editTeam.scss';
+@import 'oldVersions/dreddGame/dreddGame.scss';
+@import 'oldVersions/games/games.scss';
+@import 'oldVersions/main/main.scss';
+@import 'oldVersions/scoreboard/scoreboard.scss';
+@import 'oldVersions/teams/teams.scss';
+@import 'pages/teams/teams.scss';
 @import '../components/footer/footer.scss';
 @import '../components/modal/modal.scss';
 // endinjector
