@@ -3,10 +3,10 @@
 angular.module('dreddApp')
   .config(function ($stateProvider) {
     $stateProvider
-      .state('oldgames', {
-        url: '/oldgames',
-        templateUrl: 'app/games/games.html',
-        controller: 'oldGamesCtrl',
+      .state('games', {
+        url: '/games',
+        templateUrl: 'app/pages/games/games.html',
+        controller: 'GamesCtrl',
         controllerAs: 'gamesCtrl'
       });
   });

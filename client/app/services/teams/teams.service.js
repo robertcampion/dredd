@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('dreddApp')
-  .factory('teamsService', ['$http', 'socket', function ($http, socket) {
+  .service('teamsService', ['$http', 'socket', function ($http, socket) {
     
     this.$http = $http;
     
@@ -12,10 +12,16 @@ angular.module('dreddApp')
       socket.syncUpdates('team', this.teams);
     });
     
+    this.getTeamById = function(teamId) {
+      for(var team of this.teams) {
+        if(team._id === teamId) {
+          return team;
+        }
+      }
+      return null;  
+    }
+    
     /*$rootScope.$on('$destroy', function() {
       socket.unsyncUpdates('team');
     });*/
-    
-    // Public API here
-    return this.teams;
   }]);

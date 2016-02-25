@@ -12,7 +12,7 @@ var GameSchema = new mongoose.Schema({
   // duration is in milliseconds!
   // the internal timer always counts up from zero to duration
   // however, the display counts down from duration to zero if clockIncreases is false
-  duration:       { type: Number,                  required: true },
+  duration:       { type: Number,  default: config.defaultDuration, required: true },
   clockIncreases: { type: Boolean, default: false, required: true },
   teams:          [{ type: mongoose.Schema.Types.ObjectId, ref: 'Team' }],
   // if clockRunning is true, the clock is running, and was equal to gameTimeAtEpoch

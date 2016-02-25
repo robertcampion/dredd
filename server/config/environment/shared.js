@@ -33,6 +33,7 @@ exports = module.exports = {
   // List of user roles
   userRoles: ['guest', 'user', 'admin'],
   actionPrototypes: prototypes,
+  defaultDuration: (5 * 60 * 1000),
   numTeams: 4, // number of teams per game
   colors: ['red', 'yellow', 'green', 'white']
 };
