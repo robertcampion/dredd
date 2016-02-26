@@ -4,8 +4,12 @@
 
 <edit-team ng-show="teamCtrl.editing" initial-state="teamCtrl.team" submit-function="teamCtrl.submitEdit(edit)" message="Submit Edit"></edit-team>
 
+
 <button type="button" class="btn btn-default" ng-click="teamCtrl.toggleEdit()">
   {{teamCtrl.editing ? 'Cancel Edit' : 'Edit'}}
+</button>
+<button type="button" class="btn" ng-class="teamCtrl.team.weighed ? 'btn-primary' : 'btn-warning'" ng-click="teamCtrl.submitEdit({ weighed: !teamCtrl.team.weighed})">
+  {{teamCtrl.team.weighed ? 'Weighed' : 'Not Weighed'}}
 </button>
 <button type="button" class="btn btn-danger" ng-click="teamCtrl.deleteTeam()">
   Delete

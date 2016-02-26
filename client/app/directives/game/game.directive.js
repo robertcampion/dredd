@@ -3,10 +3,11 @@
 angular.module('dreddApp')
   .directive('game', function () {
   
-    var controller = ['$http', 'teamsService', function($http, teamsService) {
+    var controller = ['$http', 'teamsService', 'appConfig', function($http, teamsService, appConfig) {
       
       this.$http = $http;
       this.teamsService = teamsService;
+      this.actionPrototypes = appConfig.actionPrototypes;
       
       this.submitAction = function(action) {
         action.team = this.game.teams[0];

@@ -32,7 +32,24 @@ var GameSchema = new mongoose.Schema({
   // game state
   currentState: { type: State.schema, default: State.newInitialState, required: true },
   actions: [Action.schema]
+},
+{
+  toObject: { virtuals: false },
+  toJSON:   { virtuals: true }
 });
+
+GameSchema.virtual('queued')
+  .get(function() {
+    return !(this.dateCompleted) && this.queuePosition;
+  });
+
+GameSchema.methods.startClock = function() {
+  
+}
+
+GameSchema.methods.stopClock = function() {
+  
+}
 
 
 GameSchema.methods.addAction = function(action) {
