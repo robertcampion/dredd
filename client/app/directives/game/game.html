@@ -1,24 +1,12 @@
-<h3>Current Score</h3>
-<ul class="list-inline">
-  <li ng-repeat="teamId in gameCtrl.game.teams | filter: '' track by $index" ng-init="$index">
-    {{ gameCtrl.teamsService.getTeamById(teamId).name }}:
-    {{ gameCtrl.game.currentState.scores[$index] }}
-    </div>
-  </li>
-</ul>
+<button type="button" class="btn btn-info" ui-sref="controls({id:gameCtrl.game._id})">Go To Game</button>
 
-<h3>Current Time</h3>
-  {{ gameCtrl.currentGameTime | gameTime: gameCtrl.game }}
-  <button type="button" class="btn btn-primary" ng-hide="gameCtrl.game.clockRunning" ng-click="gameCtrl.submitPsuedoAction('start')">Start</button>
-  <button type="button" class="btn btn-warning" ng-hide="gameCtrl.game.clockRunning" ng-click="gameCtrl.submitEdit({gameTimeAtEpoch: 0})">Reset</button>
-  <button type="button" class="btn btn-danger" ng-show="gameCtrl.game.clockRunning" ng-click="gameCtrl.submitPsuedoAction('stop')">Stop</button>
-
-<h3>Teams</h3>
 <ul class="list-inline">
   <li ng-repeat="teamId in gameCtrl.game.teams track by $index" ng-init="teamIndex = $index">
     <div class="btn-group" uib-dropdown>
       <button type="button" class="btn" uib-dropdown-toggle>
-        {{teamId === null ? 'Empty' : gameCtrl.teamsService.getTeamById(teamId).name}}<span class="caret"></span>
+        {{teamId === null ? 'Empty' : gameCtrl.teamsService.getTeamById(teamId).name}}
+        ({{gameCtrl.game.currentState.scores[$index]}})
+        <span class="caret"></span>
       </button>
       <ul class="uib-dropdown-menu" role="menu" aria-labelledby="single-button">
         <li role="menuitem">
@@ -34,23 +22,6 @@
         </li>
       </ul>
     </div>
-  </li>
-</ul>
-<h3>Events</h3>
-<ul>
-  <li ng-repeat="action in gameCtrl.game.actions" >
-    <code>{{action | json}}</code>
-    <button type="button" class="btn btn-danger" ng-click="modifyGame.deleteAction(action._id)">
-      Remove Event
-    </button>
-  </li>
-</ul>
-<h3>Add Event</h3>
-<ul class="list-inline">
-  <li ng-repeat="action in gameCtrl.actionPrototypes" >
-    <button type="button" class="btn btn-primary" ng-click="gameCtrl.submitAction(action)">
-      {{action.name}} ({{gameCtrl.game.currentState.counts[0][action.prototypeId] || 0}})
-    </button>
   </li>
 </ul>
 
