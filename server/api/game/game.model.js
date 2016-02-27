@@ -43,17 +43,33 @@ GameSchema.virtual('queued')
     return !(this.dateCompleted) && this.queuePosition;
   });
 
+GameSchema.methods.getCurrentGameTime = function() {
+  var time = this.gameTimeAtEpoch;
+  if(this.clockRunning) {
+    time += Date.now() - this.dateAtEpoch;
+  }
+  return time;
+};
+
 GameSchema.methods.startClock = function() {
-  
-}
+  this.dateAtEpoch = Date.now();
+  this.clockRunning = true;
+};
 
 GameSchema.methods.stopClock = function() {
-  
-}
+  this.gameTimeAtEpoch = this.getCurrentGameTime();
+  this.dateAtEpoch = null;
+  this.clockRunning = false;
+};
 
+GameSchema.methods.complete = function() {
+  this.dateCompleted = Date.now();
+};
 
 GameSchema.methods.addAction = function(action) {
-  console.log('adding action: ', action);
+  //console.log('adding action: ', action);
+  action.gameTime = this.getCurrentGameTime();
+  
   var insertAt;
   var state = this.currentState;
   for(insertAt = 0; insertAt < this.actions.length; insertAt++) {
@@ -63,21 +79,21 @@ GameSchema.methods.addAction = function(action) {
     }
   }
   
-  console.log('inserting action at: ', insertAt);
-  console.log('starting state: ', state);
+  //console.log('inserting action at: ', insertAt);
+  //console.log('starting state: ', state);
   
   this.actions.splice(insertAt, 0, action);
   
-  console.log('added state!');
+  //console.log('added state!');
   
   for(var i = insertAt; i < this.actions.length; i++) {
     state = this.actions[i].applyToState(state);
-    console.log('intermediate state: ', state);
+    //console.log('intermediate state: ', state);
   }
   
   this.currentState = state;
   
-  console.log('final state: ', state);
+  //console.log('final state: ', state);
   
 }
 
@@ -104,30 +120,28 @@ GameSchema.methods.removeActionById = function(id) {
 }
 
 GameSchema.pre('save', function(next) {
-  // the clock starts now, set epoch
-  if(this.clockRunning && this.dateAtEpoch === null) {
-    this.dateAtEpoch = Date.now();
+  /*if(this.clockRunning && this.dateAtEpoch === null) {
+    this.startClock();
   }
   
-  // the clock pauses now, set time 
   if(!this.clockRunning && this.dateAtEpoch !== null) {
-    this.gameTimeAtEpoch += Date.now() - this.dateAtEpoch;
-    this.dateAtEpoch = null;
-  }
+    this.stopClock();
+  }*/
   
   // get current game time
-  var currentGameTime = this.gameTimeAtEpoch;
+  /*var currentGameTime = this.gameTimeAtEpoch;
   if(this.clockRunning) {
     currentGameTime += Date.now() - this.dateAtEpoch;
-  }
+  }*/
   
   // finish game
-  if(currentGameTime > this.duration) {
-    this.clockRunning = false;
+  if(this.getCurrentGameTime() > this.duration) {
+    this.stopClock();
     this.gameTimeAtEpoch = this.duration;
-    this.dateAtEpoch = null;
-    
-    this.dateCompleted = Date.now();
+    // don't complete the game immediately: this way the game is kept in
+    // the queue and it doesn't disapear from the tablets or scoreboard
+    // until manually completed by a judge
+    //this.dateCompleted = Date.now();
   }
   
   // make sure state is initialized

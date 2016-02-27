@@ -1,11 +1,17 @@
 <h3>Current Score</h3>
 <ul class="list-inline">
   <li ng-repeat="teamId in gameCtrl.game.teams | filter: '' track by $index" ng-init="$index">
-    {{gameCtrl.teamsService.getTeamById(teamId).name}}:
+    {{ gameCtrl.teamsService.getTeamById(teamId).name }}:
     {{ gameCtrl.game.currentState.scores[$index] }}
     </div>
   </li>
 </ul>
+
+<h3>Current Time</h3>
+  {{ gameCtrl.currentGameTime | gameTime: gameCtrl.game }}
+  <button type="button" class="btn btn-primary" ng-hide="gameCtrl.game.clockRunning" ng-click="gameCtrl.submitPsuedoAction('start')">Start</button>
+  <button type="button" class="btn btn-warning" ng-hide="gameCtrl.game.clockRunning" ng-click="gameCtrl.submitEdit({gameTimeAtEpoch: 0})">Reset</button>
+  <button type="button" class="btn btn-danger" ng-show="gameCtrl.game.clockRunning" ng-click="gameCtrl.submitPsuedoAction('stop')">Stop</button>
 
 <h3>Teams</h3>
 <ul class="list-inline">

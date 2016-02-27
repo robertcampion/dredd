@@ -128,3 +128,36 @@ export function removeAction(req, res) {
     .then(respondWithResult(res, 204))
     .catch(handleError(res));
 }
+
+export function start(req, res) {
+  Game.findByIdAsync(req.params.id)
+    .then(handleEntityNotFound(res))
+    .then((game) => {
+      game.startClock();
+      return game.saveAsync();
+    })
+    .then(respondWithResult(res, 200))
+    .catch(handleError(res));
+}
+
+export function stop(req, res) {
+  Game.findByIdAsync(req.params.id)
+    .then(handleEntityNotFound(res))
+    .then((game) => {
+      game.stopClock();
+      return game.saveAsync();
+    })
+    .then(respondWithResult(res, 200))
+    .catch(handleError(res));
+}
+
+export function complete(req, res) {
+  Game.findByIdAsync(req.params.id)
+    .then(handleEntityNotFound(res))
+    .then((game) => {
+      game.complete();
+      return game.saveAsync();
+    })
+    .then(respondWithResult(res, 200))
+    .catch(handleError(res));
+}
