@@ -22,7 +22,7 @@ angular.module('dreddApp')
       }
       
       var count = '';
-      if(teamIdx > 0) {
+      if(teamIdx >= 0) {
         count = state.counts[teamIdx][action.prototypeId] || 0;
       }
       

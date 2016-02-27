@@ -17,6 +17,10 @@ class NavbarController {
   {
     'title': 'Games',
     'state': 'games'
+  },
+  {
+    'title': 'Current Game',
+    'state': 'controls({id:\'current\'})'
   }];
 
   isCollapsed = true;

@@ -7,9 +7,24 @@ angular.module('dreddApp')
     
     this.games = [];
     
+    this.currentGame = {};
+    this.setCurrent = () => {
+      var sorted = this.games.filter(this.queued)
+        .sort((g1, g2) => g1.queuePosition - g2.queuePosition);
+        
+      if(sorted.length > 0) {
+        this.currentGame = sorted[0];
+      }
+      else {
+        this.currentGame = {};
+      }
+    }
+    
+    
     this.$http.get('/api/games').then(response => {
       this.games.push(...response.data);
-      socket.syncUpdates('game', this.games);
+      this.setCurrent();
+      socket.syncUpdates('game', this.games, this.setCurrent);
     });
     
     this.getGameById = function(gameId) {
@@ -20,4 +35,11 @@ angular.module('dreddApp')
       }
       return null;  
     }
+    
+    // filters
+    
+    this.queued    = game => game.queued;
+    this.unqueued  = game => !game.queued && !game.dateCompleted;
+    this.completed = game => game.dateCompleted;
+    
   }]);
