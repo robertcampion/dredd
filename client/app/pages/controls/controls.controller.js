@@ -12,6 +12,7 @@ angular.module('dreddApp')
     this.game = null;
     this.team = null;
     this.teamIdx = -1;
+    this.teamActionsOnly = true;
     
     this.$http.get('/api/games/' + this.id).then(response => {
       this.game = response.data;
@@ -24,7 +25,7 @@ angular.module('dreddApp')
       });
       socket.socket.on('game:remove', item => {
         if(item._id == this.id) {
-          $state.go('games')
+          $state.go('games');
         }
       });
     });

@@ -29,8 +29,9 @@
       
       
       <h3>Events</h3>
+      Only show actions for the selected team: <input type="checkbox" ng-model="gameCtrl.teamActionsOnly">
       <ul>
-        <li ng-repeat="action in gameCtrl.game.actions" >
+        <li ng-repeat="action in gameCtrl.game.actions | filter:{team: (gameCtrl.teamActionsOnly ? gameCtrl.team : '')}" >
           {{action | action}} ({{gameCtrl.teamsService.getTeamById(action.team).name}} @ {{action.gameTime | gameTime:gameCtrl.game}})
           <button type="button" class="btn btn-danger" ng-click="gameCtrl.deleteAction(action._id)">
             Remove Event
