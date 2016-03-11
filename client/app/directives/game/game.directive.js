@@ -22,6 +22,16 @@ angular.module('dreddApp')
       this.deleteGame = function() {
         this.$http.delete('/api/games/' + this.game._id);
       }
+      
+      this.getTeamById = function(teamId) {
+        for(var team of this.teamsService.teams) {
+          if(team._id === teamId) {
+            return team;
+          }
+        }
+        return null;
+      }
+      
     }];
   
     return {
