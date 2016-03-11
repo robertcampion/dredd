@@ -2,6 +2,7 @@
   "name": "dredd",
   "version": "0.0.0",
   "dependencies": {
+    "core.js": "^2.1.4",
     "angular": "~1.4.0",
     "json3": "~3.3.1",
     "es5-shim": "~3.0.1",

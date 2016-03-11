@@ -4,7 +4,7 @@
   <li ng-repeat="teamId in gameCtrl.game.teams track by $index" ng-init="teamIndex = $index">
     <div class="btn-group" uib-dropdown>
       <button type="button" class="btn" uib-dropdown-toggle>
-        {{teamId === null ? 'Empty' : this.getTeamById(teamId).name}}
+        {{teamId === null ? 'Empty' : gameCtrl.teamsService.getTeamById(teamId).name}}
         ({{gameCtrl.game.currentState.scores[$index]}})
         <span class="caret"></span>
       </button>

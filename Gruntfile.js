@@ -240,7 +240,7 @@ module.exports = function (grunt) {
       },
       client: {
         src: '<%= yeoman.client %>/index.html',
-        ignorePath: '<%= yeoman.client %>/',
+        ignorePath: '^<%= yeoman.client %>/',
       },
       test: {
         src: './karma.conf.js',
