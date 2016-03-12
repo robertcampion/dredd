@@ -1,32 +1,29 @@
-<button type="button" class="btn btn-info" ui-sref="controls({id:gameCtrl.game._id})">Go To Game</button>
-
-  <div class="col-xs-3" ng-repeat="teamId in gameCtrl.game.teams track by $index" ng-init="teamIndex = $index">
-    <div class="btn-block" uib-dropdown>
-      <button type="button" class="btn btn-block team-{{$index}}" uib-dropdown-toggle>
-        {{teamId === null ? 'Empty' : gameCtrl.teamsService.getTeamById(teamId).name}}
-        ({{gameCtrl.game.currentState.scores[$index]}})
-        <span class="caret"></span>
-      </button>
-      <ul class="uib-dropdown-menu" role="menu" aria-labelledby="single-button">
-        <li role="menuitem">
-          <a href="#" ng-click="gameCtrl.setTeam(teamIndex, null)">
-            Empty
-          </a>
-        </li>
-        <li class="divider"></li>
-        <li role="menuitem" ng-repeat="team in gameCtrl.teamsService.teams">
-          <a href="#" ng-click="gameCtrl.setTeam(teamIndex, team._id)">
-            {{team.name}}
-          </a>
-        </li>
-      </ul>
-    </div>
+<div class="col-xs-3" ng-repeat="teamId in gameCtrl.game.teams track by $index" ng-init="teamIndex = $index">
+  <div class="btn-block" uib-dropdown>
+    <button type="button" class="btn btn-block team-{{$index}}" uib-dropdown-toggle>
+      {{teamId === null ? 'Empty' : gameCtrl.teamsService.getTeamById(teamId).name}}
+      ({{gameCtrl.game.currentState.scores[$index]}})
+      <span class="caret"></span>
+    </button>
+    <ul class="uib-dropdown-menu" role="menu" aria-labelledby="single-button">
+      <li role="menuitem">
+        <a href="#" ng-click="gameCtrl.setTeam(teamIndex, null)">
+          Empty
+        </a>
+      </li>
+      <li class="divider"></li>
+      <li role="menuitem" ng-repeat="team in gameCtrl.teamsService.teams">
+        <a href="#" ng-click="gameCtrl.setTeam(teamIndex, team._id)">
+          {{team.name}}
+        </a>
+      </li>
+    </ul>
+  </div>
 </div>
-
-<!--<pre>
-{{ gameCtrl.game | json }}
-</pre>-->
-
+<div class="row">
+  <div class="col-xs-3">
+    <button type="button" class="btn btn-info" ui-sref="controls({id:gameCtrl.game._id})">Go To Game</button>
+  </div>
 <button type="button" class="btn btn-danger" ng-click="gameCtrl.deleteGame()">
   Delete
 </button>
