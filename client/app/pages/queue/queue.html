@@ -14,7 +14,7 @@
       <h1>Upcoming</h1>
     </div>
   </div>
-  <div class="row" ng-repeat="game in queueCtrl.gamesService.games | filter:queueCtrl.gamesService.queued | orderBy:'queuePosition' | limitTo:3">
+  <div class="row" ng-repeat="game in queueCtrl.gamesService.games | filter:queueCtrl.gamesService.queued | orderBy:'queuePosition' ">
     <game-display game="game"></game-display>
   </div>
 

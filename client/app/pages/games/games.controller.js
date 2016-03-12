@@ -1,8 +1,10 @@
 'use strict';
 
 angular.module('dreddApp')
-  .controller('GamesCtrl', ['$http', 'gamesService', function($http, gamesService, teamsService) {
+  .controller('GamesCtrl', ['$http', 'gamesService', 'appConfig', function($http, gamesService, teamsService, appConfig) {
     this.$http = $http;
+    
+    this.config = appConfig;
     
     this.gamesService = gamesService;
     

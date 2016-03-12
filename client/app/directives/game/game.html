@@ -12,7 +12,7 @@
         </a>
       </li>
       <li class="divider"></li>
-      <li role="menuitem" ng-repeat="team in gameCtrl.teamsService.teams">
+      <li role="menuitem" ng-repeat="team in gameCtrl.teamsService.teams | orderBy:'name'">
         <a href="#" ng-click="gameCtrl.setTeam(teamIndex, team._id)">
           {{team.name}}
         </a>
