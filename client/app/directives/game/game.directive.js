@@ -3,7 +3,7 @@
 angular.module('dreddApp')
   .directive('game', function () {
   
-    var controller = ['$http', 'teamsService', 'appConfig', function($http, teamsService, appConfig) {
+    var controller = ['$http', 'teamsService', 'appConfig', 'timesync', function($http, teamsService, appConfig, timesync) {
       
       this.$http = $http;
       this.teamsService = teamsService;

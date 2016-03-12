@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('dreddApp')
-  .controller('ControlsCtrl', ['$scope', '$http', '$timeout', '$state', 'socket', 'appConfig', 'teamsService', 'gamesService', '$stateParams', function($scope, $http, $timeout, $state, socket, appConfig, teamsService, gamesService, $stateParams) {
+  .controller('ControlsCtrl', ['$scope', '$http', '$timeout', '$state', 'socket', 'appConfig', 'teamsService', 'gamesService', '$stateParams', 'timesync', function($scope, $http, $timeout, $state, socket, appConfig, teamsService, gamesService, $stateParams, timesync) {
       
     this.$http = $http;
     this.actionPrototypes = appConfig.actionPrototypes;
@@ -18,7 +18,7 @@ angular.module('dreddApp')
     if(this.id == 'current') {
       this.game = this.gamesService.currentGame;
       $scope.$watch(() => this.gamesService.currentGame, (game) => {
-        console.log(game);
+        //console.log(game);
         this.game = game;
         this.team = this.game.teams ? this.game.teams[this.teamIdx] : null;
       });
@@ -67,13 +67,16 @@ angular.module('dreddApp')
       if(this.game) {
         var time = this.game.gameTimeAtEpoch;
         if(this.game.clockRunning) {
-          time += Date.now() - new Date(this.game.dateAtEpoch);
+          time += timesync.now() - new Date(this.game.dateAtEpoch);
         }
         if(time > this.game.duration) {
           time  = this.game.duration;
         }
         this.currentGameTime = time;
        
+      }
+      else {
+        this.currentGameTime = 0;
       }
       $timeout(this.setCurrentGameTime, 100);
     };
