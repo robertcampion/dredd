@@ -1,9 +1,8 @@
 <button type="button" class="btn btn-info" ui-sref="controls({id:gameCtrl.game._id})">Go To Game</button>
 
-<ul class="list-inline">
-  <li ng-repeat="teamId in gameCtrl.game.teams track by $index" ng-init="teamIndex = $index">
-    <div class="btn-group" uib-dropdown>
-      <button type="button" class="btn" uib-dropdown-toggle>
+  <div class="col-xs-3" ng-repeat="teamId in gameCtrl.game.teams track by $index" ng-init="teamIndex = $index">
+    <div class="btn-block" uib-dropdown>
+      <button type="button" class="btn btn-block team-{{$index}}" uib-dropdown-toggle>
         {{teamId === null ? 'Empty' : gameCtrl.teamsService.getTeamById(teamId).name}}
         ({{gameCtrl.game.currentState.scores[$index]}})
         <span class="caret"></span>
@@ -22,8 +21,7 @@
         </li>
       </ul>
     </div>
-  </li>
-</ul>
+</div>
 
 <!--<pre>
 {{ gameCtrl.game | json }}
