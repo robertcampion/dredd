@@ -1,0 +1,13 @@
+  <div class="col-xs-3 game-display" ng-repeat="teamId in gameCtrl.game.teams track by $index">
+  
+    <div class="text-center team-{{$index}} team-box">
+      <span class="team-name">
+        {{teamId === null ? "-" : gameCtrl.teamsService.getTeamById(teamId).name}}
+      </span>
+      <span class="score" ng-show="gameCtrl.scores"><br/>
+        {{gameCtrl.game.currentState.scores[$index]}}
+      </span>
+    </div>
+    
+  </div>
+

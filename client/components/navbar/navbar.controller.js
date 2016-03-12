@@ -2,13 +2,17 @@
 
 class NavbarController {
   //start-non-standard
-  menu = [{
+  menu = [/*{
     'title': 'Home',
     'state': 'main'
-  },
+  },*/
   {
     'title': 'Scoreboard',
     'state': 'scoreboard'
+  },
+  {
+    'title': 'Queue',
+    'state': 'queue'
   },
   {
     'title': 'Teams',

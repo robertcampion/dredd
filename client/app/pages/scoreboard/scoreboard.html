@@ -1,0 +1,23 @@
+<div class="container scoreboard">
+  <div class="row">
+    <div class="col-xs-12 text-center">
+
+      <span class="time">
+        {{ scoreboard.currentGameTime | gameTime: scoreboard.game }}
+      </span>
+      
+    </div>
+  </div>
+  
+  
+  <div class="row" ng-repeat="teamId in scoreboard.game.teams track by $index" ng-init="$index">
+    <div class="col-xs-10 team-name">
+      {{ teamId ? scoreboard.teamsService.getTeamById(teamId).name : 'N/A' }}
+    </div>
+    
+    <div class="col-xs-2 text-right score">
+      {{ scoreboard.game.currentState.scores[$index] }}
+    </div>
+
+  </div>
+</div>

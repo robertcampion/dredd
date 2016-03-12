@@ -3,10 +3,10 @@
 angular.module('dreddApp')
   .config(function ($stateProvider) {
     $stateProvider
-      .state('scoreboard', {
-        url: '/scoreboard',
+      .state('scoreboardOld', {
+        url: '/scoreboardOld',
         templateUrl: 'app/scoreboard/scoreboard.html',
-        controller: 'ScoreboardCtrl',
+        controller: 'ScoreboardCtrlOld',
         controllerAs: 'scoreboard'
       });
   });

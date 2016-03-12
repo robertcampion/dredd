@@ -3,11 +3,10 @@
 angular.module('dreddApp')
   .directive('game', function () {
   
-    var controller = ['$http', '$timeout', 'teamsService', 'appConfig', function($http, $timeout, teamsService, appConfig) {
+    var controller = ['$http', 'teamsService', 'appConfig', function($http, teamsService, appConfig) {
       
       this.$http = $http;
       this.teamsService = teamsService;
-      this.actionPrototypes = appConfig.actionPrototypes;
       
       this.setTeam = function(idx, teamId) {
         var teams = _.clone(this.game.teams);
@@ -21,15 +20,6 @@ angular.module('dreddApp')
       
       this.deleteGame = function() {
         this.$http.delete('/api/games/' + this.game._id);
-      }
-      
-      this.getTeamById = function(teamId) {
-        for(var team of this.teamsService.teams) {
-          if(team._id === teamId) {
-            return team;
-          }
-        }
-        return null;
       }
       
     }];

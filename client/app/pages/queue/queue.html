@@ -1,0 +1,21 @@
+<div class="container queue">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1>Previous</h1>
+    </div>
+  </div>
+  
+  <div class="row" ng-repeat="game in queueCtrl.gamesService.games | filter:queueCtrl.gamesService.completed | orderBy:'-dateCompleted' | limitTo:1">
+    <game-display game="game" scores="true"></game-display>
+  </div>
+  
+  <div class="row">
+    <div class="col-lg-12">
+      <h1>Upcoming</h1>
+    </div>
+  </div>
+  <div class="row" ng-repeat="game in queueCtrl.gamesService.games | filter:queueCtrl.gamesService.queued | orderBy:'queuePosition' | limitTo:3:1">
+    <game-display game="game"></game-display>
+  </div>
+
+</div>

@@ -11,7 +11,7 @@ angular.module('dreddApp', [
 ])
   .config(function($urlRouterProvider, $locationProvider) {
     $urlRouterProvider
-      .otherwise('/teams');
+      .otherwise('/games');
 
     $locationProvider.html5Mode(true);
   });

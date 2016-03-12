@@ -105,6 +105,6 @@ class ScoreboardCtrl {
 }
 
 angular.module('dreddApp')
-  .controller('ScoreboardCtrl', ScoreboardCtrl);
+  .controller('ScoreboardCtrlOld', ScoreboardCtrl);
 
 })();

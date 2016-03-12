@@ -18,6 +18,7 @@ $fa-font-path: "../bower_components/font-awesome/fonts";
 // injector
 @import 'directives/editTeam/editTeam.scss';
 @import 'directives/game/game.scss';
+@import 'directives/gameDisplay/gameDisplay.scss';
 @import 'directives/team/team.scss';
 @import 'oldVersions/dreddGame/dreddGame.scss';
 @import 'oldVersions/games/games.scss';
@@ -25,7 +26,16 @@ $fa-font-path: "../bower_components/font-awesome/fonts";
 @import 'oldVersions/scoreboard/scoreboard.scss';
 @import 'pages/controls/controls.scss';
 @import 'pages/games/games.scss';
+@import 'pages/queue/queue.scss';
+@import 'pages/scoreboard/scoreboard.scss';
 @import 'pages/teams/teams.scss';
 @import '../components/footer/footer.scss';
 @import '../components/modal/modal.scss';
 // endinjector
+
+.team-0 { background-color: #FF0000 }
+.team-1 { background-color: #FFFF00 }
+.team-2 { background-color: #00FF00 }
+.team-3 { background-color: #FFFFFF }
+
+
