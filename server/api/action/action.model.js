@@ -45,7 +45,7 @@ ActionSchema.methods.applyToState = function(state) {
   
   switch(this.kind) {
     case 'points':
-      newState.basePoints[teamIndex] += this.value;
+      newState.extraPoints[teamIndex] += this.value * newState.pointMultipliers[teamIndex];
       break;
     case 'extra':
       newState.extraPoints[teamIndex] += this.value;

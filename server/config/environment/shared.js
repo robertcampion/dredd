@@ -13,15 +13,16 @@
 var prototypes = [
   { name: 'Push open swinging door', kind: 'points',     value:   5, count: 1 },
   { name: 'Pull open swinging door', kind: 'points',     value:   5, count: 5 },
-  { name: 'Release cannon',          kind: 'points',     value:   5           },
-  { name: 'Lower drop wall',         kind: 'points',     value:   5           },
-  { name: 'Foam ball in center bin', kind: 'points',     value:  30           },
-  { name: 'Golf ball in team bin',   kind: 'points',     value:  10           },
+  { name: 'Release cannon',          kind: 'points',     value:   5, count: 4 },
+  { name: 'Lower drop wall',         kind: 'points',     value:   5, count: 2 },
+  { name: 'Foam ball in center bin', kind: 'points',     value:  30, count: 4 },
+  { name: 'Golf ball in team bin',   kind: 'points',     value:  10, count: 16 },
   { name: 'Personal foul',           kind: 'extra',      value: -10, count: 5 },
   { name: 'Technical foul',          kind: 'extra',      value: -50           },
   { name: 'Assist stuck robot',      kind: 'extra',      value:  +5           },
-  { name: 'Airborne robot',          kind: 'multiplier', value:   2, count: 1 },
-  { name: 'Autonomous robot',        kind: 'multiplier', value:   4, count: 1 }
+  { name: 'Airborne robot',          kind: 'multiplier', value:   2 },
+  { name: 'Autonomous robot',        kind: 'multiplier', value:   4 },
+  { name: 'Reset multiplier',        kind: 'multiplier', value:   1 }
 ];
 
 // assign ID by index
@@ -33,7 +34,7 @@ exports = module.exports = {
   // List of user roles
   userRoles: ['guest', 'user', 'admin'],
   actionPrototypes: prototypes,
-  defaultDuration: (5 * 60 * 1000),
+  defaultDuration: (6 * 60 * 1000),
   numTeams: 4, // number of teams per game
   colors: ['red', 'yellow', 'green', 'white']
 };

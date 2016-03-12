@@ -4,17 +4,18 @@ angular.module('dreddApp')
   .filter('action', ['appConfig', function (appConfig) {
     return function (action, state, teamIdx) {
       
-      var str = action.name;
-      if(!str) {
+      var str = ''; //action.name;
+      if(!action.name) {
         str = appConfig.actionPrototypes[action.prototypeId].name;
+        str += ', '; 
       }
       
       if(action.kind == 'points' || action.kind == 'extra' ) {
-        str += ', ' + (action.value < 0 ? '−' : '+') + Math.abs(action.value);
+        str += (action.value < 0 ? '−' : '+') + Math.abs(action.value);
       }
       
       if(action.kind == 'multiplier' ) {
-        str += ', ×' + action.value;
+        str += '×' + action.value;
       }
       
       if(!state) {
