@@ -23,6 +23,8 @@ ActionSchema.methods.applyToState = function(state) {
   }
   var newState = _.cloneDeep(state);
   
+  newState._id = new mongoose.Types.ObjectId();
+  
   var teamIndex = this.parent().teams.indexOf(this.team);
     
   if(teamIndex == -1) {
