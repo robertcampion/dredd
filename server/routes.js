@@ -12,7 +12,6 @@ export default function(app) {
   app.use('/api/actions', require('./api/action'));
   app.use('/api/games', require('./api/game'));
   app.use('/api/teams', require('./api/team'));
-  app.use('/api/things', require('./api/thing'));
   app.use('/timesync', require('./timesync'));
   // All undefined asset or api routes should return a 404
   app.route('/:url(api|auth|components|app|bower_components|assets)/*')

@@ -2,7 +2,7 @@
 
 import config from '../../config/environment';
 
-var mongoose = require('bluebird').promisifyAll(require('mongoose'));
+var mongoose = require('mongoose');
 
 var State = require('../state/state.model');
 var Action = require('../action/action.model');
@@ -68,6 +68,7 @@ GameSchema.methods.complete = function() {
 
 GameSchema.methods.addAction = function(action) {
   //console.log('adding action: ', action);
+  
   action.gameTime = this.getCurrentGameTime();
   
   var insertAt;

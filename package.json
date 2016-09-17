@@ -4,7 +4,6 @@
   "main": "server/app.js",
   "dependencies": {
     "babel-runtime": "^5.8.20",
-    "bluebird": "^2.9.34",
     "body-parser": "^1.13.3",
     "composable-middleware": "^0.3.0",
     "compression": "^1.5.2",

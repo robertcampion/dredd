@@ -24,17 +24,14 @@ function respondWithResult(res, statusCode) {
 function saveUpdates(updates) {
   return function(entity) {
     var updated = _.merge(entity, updates);
-    return updated.saveAsync()
-      .spread(updated => {
-        return updated;
-      });
+    return updated.save()
   };
 }
 
 function removeEntity(res) {
   return function(entity) {
     if (entity) {
-      return entity.removeAsync()
+      return entity.remove()
         .then(() => {
           res.status(204).end();
         });
@@ -61,14 +58,14 @@ function handleError(res, statusCode) {
 
 // Gets a list of Teams
 export function index(req, res) {
-  Team.findAsync()
+  Team.find()
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 
 // Gets a single Team from the DB
 export function show(req, res) {
-  Team.findByIdAsync(req.params.id)
+  Team.findById(req.params.id)
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))
     .catch(handleError(res));
@@ -76,7 +73,7 @@ export function show(req, res) {
 
 // Creates a new Team in the DB
 export function create(req, res) {
-  Team.createAsync(req.body)
+  Team.create(req.body)
     .then(respondWithResult(res, 201))
     .catch(handleError(res));
 }
@@ -86,7 +83,7 @@ export function update(req, res) {
   if (req.body._id) {
     delete req.body._id;
   }
-  Team.findByIdAsync(req.params.id)
+  Team.findById(req.params.id)
     .then(handleEntityNotFound(res))
     .then(saveUpdates(req.body))
     .then(respondWithResult(res))
@@ -95,7 +92,7 @@ export function update(req, res) {
 
 // Deletes a Team from the DB
 export function destroy(req, res) {
-  Team.findByIdAsync(req.params.id)
+  Team.findById(req.params.id)
     .then(handleEntityNotFound(res))
     .then(removeEntity(res))
     .catch(handleError(res));
