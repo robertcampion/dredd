@@ -3,7 +3,7 @@
 import config from '../../config/environment'
 import _ from 'lodash'
 
-var mongoose = require('bluebird').promisifyAll(require('mongoose'));
+var mongoose = require('mongoose');
 
 var State = require('../state/state.model');
 
@@ -32,8 +32,8 @@ ActionSchema.methods.applyToState = function(state) {
     return newState;
   }
   
-  console.log('teamIndex:', teamIndex);
-  console.log('newState:', newState);
+  //console.log('teamIndex:', teamIndex);
+  //console.log('newState:', newState);
   
   var prevCount = newState.counts[teamIndex][this.prototypeId] || 0;
   
@@ -43,7 +43,7 @@ ActionSchema.methods.applyToState = function(state) {
     return newState;
   }
   
-  console.log('prevCount OK');
+  //console.log('prevCount OK');
   
   switch(this.kind) {
     case 'points':
@@ -59,11 +59,11 @@ ActionSchema.methods.applyToState = function(state) {
       console.log('Bad event type "' + this.type + '"');
   }
   
-  console.log('switch OK')
+  //console.log('switch OK')
   
   newState.counts[teamIndex][this.prototypeId] = prevCount + 1;
      
-  console.log('returning');
+  //console.log('returning');
   
   return newState;
 }

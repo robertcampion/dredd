@@ -27,17 +27,14 @@ function saveUpdates(updates) {
       delete update.actions;
     }    
     var updated = _.merge(entity, updates); 
-    return updated.saveAsync()
-      .spread(updated => {
-        return updated;
-      });
+    return updated.save()
   };
 }
 
 function removeEntity(res) {
   return function(entity) {
     if (entity) {
-      return entity.removeAsync()
+      return entity.remove()
         .then(() => {
           res.status(204).end();
         });
@@ -59,19 +56,20 @@ function handleError(res, statusCode) {
   statusCode = statusCode || 500;
   return function(err) {
     res.status(statusCode).send(err);
+    console.log(err);
   };
 }
 
 // Gets a list of Games
 export function index(req, res) {
-  Game.findAsync()
+  Game.find()
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 
 // Gets a single Game from the DB
 export function show(req, res) {
-  Game.findByIdAsync(req.params.id)
+  Game.findById(req.params.id)
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))
     .catch(handleError(res));
@@ -79,7 +77,7 @@ export function show(req, res) {
 
 // Creates a new Game in the DB
 export function create(req, res) {
-  Game.createAsync(req.body)
+  Game.create(req.body)
     .then(respondWithResult(res, 201))
     .catch(handleError(res));
 }
@@ -90,7 +88,7 @@ export function update(req, res) {
     delete req.body._id;
   }
   //console.log(req.body);
-  Game.findByIdAsync(req.params.id)
+  Game.findById(req.params.id).exec()
     .then(handleEntityNotFound(res))
     .then(saveUpdates(req.body))
     .then(respondWithResult(res))
@@ -99,7 +97,7 @@ export function update(req, res) {
 
 // Deletes a Game from the DB
 export function destroy(req, res) {
-  Game.findByIdAsync(req.params.id)
+  Game.findById(req.params.id)
     .then(handleEntityNotFound(res))
     .then(removeEntity(res))
     .catch(handleError(res));
@@ -107,11 +105,11 @@ export function destroy(req, res) {
 
 // Adds a new Action to a Game in the DB
 export function addAction(req, res) {
-  Game.findByIdAsync(req.params.id)
+  Game.findById(req.params.id)
     .then(handleEntityNotFound(res))
     .then((game) => {
       game.addAction(req.body);
-      return game.saveAsync();
+      return game.save();
     })
     .then(respondWithResult(res, 201))
     .catch(handleError(res));
@@ -119,44 +117,44 @@ export function addAction(req, res) {
 
 // Removes an Action from a Game in the DB
 export function removeAction(req, res) {
-  Game.findByIdAsync(req.params.id)
+  Game.findById(req.params.id)
     .then(handleEntityNotFound(res))
     .then((game) => {
       game.removeActionById(req.params.actionId);
-      return game.saveAsync();
+      return game.save();
     })
     .then(respondWithResult(res, 204))
     .catch(handleError(res));
 }
 
 export function start(req, res) {
-  Game.findByIdAsync(req.params.id)
+  Game.findById(req.params.id)
     .then(handleEntityNotFound(res))
     .then((game) => {
       game.startClock();
-      return game.saveAsync();
+      return game.save();
     })
     .then(respondWithResult(res, 200))
     .catch(handleError(res));
 }
 
 export function stop(req, res) {
-  Game.findByIdAsync(req.params.id)
+  Game.findById(req.params.id)
     .then(handleEntityNotFound(res))
     .then((game) => {
       game.stopClock();
-      return game.saveAsync();
+      return game.save();
     })
     .then(respondWithResult(res, 200))
     .catch(handleError(res));
 }
 
 export function complete(req, res) {
-  Game.findByIdAsync(req.params.id)
+  Game.findById(req.params.id)
     .then(handleEntityNotFound(res))
     .then((game) => {
       game.complete();
-      return game.saveAsync();
+      return game.save();
     })
     .then(respondWithResult(res, 200))
     .catch(handleError(res));
