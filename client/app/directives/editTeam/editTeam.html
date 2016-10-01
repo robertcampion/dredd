@@ -1,13 +1,15 @@
-<form role="form" class="form-inline">
-  <div class="form-group">
-    <label for="name">Team Name:</label>
-    <input type="text" class="form-control" name="name" ng-model="editTeamCtrl.team.name">
-  </div>
-  <div class="form-group">
-    <label for="school">School:</label>
-    <input type="text" class="form-control" name="school" ng-model="editTeamCtrl.team.school">
-  </div>
-  <button type="submit" class="btn btn-primary" ng-click="editTeamCtrl.submitEdit()">
-    {{editTeamCtrl.message}}
-  </button>
-</form>
+<div class="editor">
+  <form role="form" class="form-inline">
+    <div class="form-group">
+      <label for="name">Team Name:</label>
+      <input type="text" class="form-control" name="name" ng-model="editTeamCtrl.team.name">
+    </div>
+    <div class="form-group">
+      <label for="school">School:</label>
+      <input type="text" class="form-control" name="school" ng-model="editTeamCtrl.team.school">
+    </div>
+    <button type="submit" class="btn btn-primary" ng-click="editTeamCtrl.submitEdit()">
+      {{editTeamCtrl.message}}
+    </button>
+  </form>
+</div>
