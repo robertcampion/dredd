@@ -1,0 +1,32 @@
+.vtable{
+  display:table;
+}
+.vrow{
+  display:table-row;
+}
+.vgroup{
+  display:table-row-group;
+}
+.vcell{
+  display:table-cell;
+}
+.vtable button{
+  width:100%;
+  margin:0.3em;
+}
+.vtable .editor{
+  background-color:white;
+  padding:1em;
+  margin-top:1em;
+  position:absolute;
+  border:1px solid black;
+}
+.editor button{
+  width:auto;
+}
+.newteam{
+  margin-top:2em;
+}
+.vrow > .vcell:first-child{
+  padding-right:1em;
+}
