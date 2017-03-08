@@ -2,44 +2,40 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-lg-12">
-      <h1>Queued</h1>
-    </div>
+    <h1>Queued</h1>
   </div>
   <div class="row" ng-repeat="game in gamesCtrl.gamesService.games | filter:gamesCtrl.gamesService.queued | orderBy:'queuePosition'">
     <game game="game"></game>
-    <button type="button" class="btn btn-default" ng-click="gamesCtrl.moveGameInQueue(game, -1)">
-            Move up
-          </button>
-          <button type="button" class="btn btn-default" ng-click="gamesCtrl.moveGameInQueue(game, +1)">
-            Move down
-          </button>
-        </li>
-      </ul>
-      </div>
-      </div>
-      <h1>Unqueued</h1>
-      <ul>
-        <li ng-repeat="game in gamesCtrl.gamesService.games | filter:gamesCtrl.gamesService.unqueued">
-          <game game="game"></game>
-          <button type="button" class="btn btn-default" ng-click="gamesCtrl.queueGame(game)">
-            Queue
-          </button>
-        </li>
-        <li>
-          <button type="button" class="btn btn-primary" ng-click="gamesCtrl.addGame({duration: gamesCtrl.config.defaultDuration})">
-            Add New
-          </button>
-        </li>
-      </ul>
-      <h1>Finished</h1>
-      <ul>
-        <li ng-repeat="game in gamesCtrl.gamesService.games | filter:gamesCtrl.gamesService.completed | orderBy:'dateCompleted'">
-          <game game="game"></game>
-        </li>
-      </ul>
-      
+    <div class="col-xs-6">
+      <button type="button" class="btn btn-default" ng-click="gamesCtrl.moveGameInQueue(game, -1)">
+        Move up
+      </button>
+      <button type="button" class="btn btn-default" ng-click="gamesCtrl.moveGameInQueue(game, +1)">
+        Move down
+      </button>
     </div>
+  </div>
+  <div class="row">
+    <h1>Unqueued</h1>
+  </div>
+  <div class="row" ng-repeat="game in gamesCtrl.gamesService.games | filter:gamesCtrl.gamesService.unqueued">
+    <game game="game"></game>
+    <button type="button" class="btn btn-default" ng-click="gamesCtrl.queueGame(game)">
+      Queue
+    </button>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <button type="button" class="btn btn-primary" ng-click="gamesCtrl.addGame({duration: gamesCtrl.config.defaultDuration})">
+        Add New
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <h1>Finished</h1>
+  </div>
+  <div class="row" ng-repeat="game in gamesCtrl.gamesService.games | filter:gamesCtrl.gamesService.completed | orderBy:'dateCompleted'">
+    <game game="game"></game>
   </div>
 </div>
 

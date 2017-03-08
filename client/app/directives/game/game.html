@@ -1,4 +1,4 @@
-<div class="col-xs-3" ng-repeat="teamId in gameCtrl.game.teams track by $index" ng-init="teamIndex = $index">
+<div class="col-sm-3" ng-repeat="teamId in gameCtrl.game.teams track by $index" ng-init="teamIndex = $index">
   <div class="btn-block" uib-dropdown>
     <button type="button" class="btn btn-block team-{{$index}}" uib-dropdown-toggle>
       {{teamId === null ? 'Empty' : gameCtrl.teamsService.getTeamById(teamId).name}}
@@ -20,11 +20,11 @@
     </ul>
   </div>
 </div>
-<div class="row">
-  <div class="col-xs-3">
-    <button type="button" class="btn btn-info" ui-sref="controls({id:gameCtrl.game._id})">Go To Game</button>
-  </div>
-<button type="button" class="btn btn-danger" ng-click="gameCtrl.deleteGame()">
-  Delete
-</button>
-
+<div class="col-xs-6">
+  <button type="button" class="btn btn-info" ui-sref="controls({id:gameCtrl.game._id})">
+    Go To Game
+  </button>
+  <button type="button" class="btn btn-danger" ng-click="gameCtrl.deleteGame()">
+    Delete
+  </button>
+</div>
