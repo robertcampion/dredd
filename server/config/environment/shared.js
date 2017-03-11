@@ -11,12 +11,12 @@
   //  - count: number of times the action is allowed to occur (undef = unlimited)
 
 var prototypes = [
-  { name: 'Push open swinging door', kind: 'points',     value:   5, count: 1 },
-  { name: 'Pull open swinging door', kind: 'points',     value:   5, count: 5 },
-  { name: 'Release cannon',          kind: 'points',     value:   5, count: 4 },
-  { name: 'Lower drop wall',         kind: 'points',     value:   5, count: 2 },
-  { name: 'Foam ball in center bin', kind: 'points',     value:  30, count: 4 },
-  { name: 'Golf ball in team bin',   kind: 'points',     value:  10, count: 16 },
+  { name: 'Traversed tunnel', kind: 'points',     value:   5, count: 1 },
+  { name: 'Traversed tunnel (before 45 sec)', kind: 'points',     value:   10, count: 1 },
+  { name: 'Inserted key',          kind: 'points',     value:   10, count: 1 },
+  { name: 'Team/neutral ball',         kind: 'points',     value:  20, count: 6 },
+  { name: 'Bonus ball', kind: 'points',     value:  30, count: 2 },
+  //{ name: 'Golf ball in team bin',   kind: 'points',     value:  10, count: 16 },
   { name: 'Personal foul',           kind: 'extra',      value: -10, count: 5 },
   { name: 'Technical foul',          kind: 'extra',      value: -50           },
   { name: 'Assist stuck robot',      kind: 'extra',      value:  +5           },
