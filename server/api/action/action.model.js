@@ -3,6 +3,8 @@
 import config from '../../config/environment'
 import _ from 'lodash'
 
+var ActionEvents = require('./action.events');
+
 var mongoose = require('mongoose');
 
 var State = require('../state/state.model');
@@ -14,6 +16,14 @@ var ActionSchema = new mongoose.Schema({
   value: { type: Number, required: true },
   previousState: { type: State.schema, required: true },
   gameTime: { type: Number, default: -1, required: true }
+});
+
+// Register the event emitter to the model events
+['save', 'remove'].forEach(e => {
+  ActionSchema.post(e, doc => {
+    ActionEvents.emit(e + ':' + doc._id, doc);
+    ActionEvents.emit(e, doc);
+  });
 });
 
 ActionSchema.methods.applyToState = function(state) {
