@@ -7,6 +7,8 @@ var mongoose = require('mongoose');
 var State = require('../state/state.model');
 var Action = require('../action/action.model');
 
+var GameEvents = require('./game.events');
+
 var GameSchema = new mongoose.Schema({
   // game parameters:
   // duration is in milliseconds!
@@ -36,6 +38,14 @@ var GameSchema = new mongoose.Schema({
 {
   toObject: { virtuals: false },
   toJSON:   { virtuals: true }
+});
+
+// Register the event emitter to the model events
+['save', 'remove'].forEach(e => {
+  GameSchema.post(e, doc => {
+    GameEvents.emit(e + ':' + doc._id, doc);
+    GameEvents.emit(e, doc);
+  });
 });
 
 GameSchema.virtual('queued')
